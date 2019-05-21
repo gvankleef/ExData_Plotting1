@@ -1,0 +1,52 @@
+if(!file.exists("./data")){dir.create("./data")}
+url <- "https://data.baltimorecity.gov/api/views/k5ry-ef3g/rows.csv?accesstype=DOWNLOAD"
+download.file(url, destfile = "./data/restaurants.csv", method = "curl")
+rest.data <- fread("./data/restaurants.csv")
+
+##create a sequence
+
+##sequence starting at 1, ending at 10, increasing by 2 at each step
+s1 <- seq(1,10,by=2);s1
+
+##sequence starting at 1, ending at 10, producing 3 numbers
+s2 <- seq(1,10,length=3);s2
+
+##create an index for a vector, this produces indices you can use to subset the dataset
+x <- c(1,3,8,25,100); seq(along=x)
+
+##subset data
+##create a column that you can use to subset the data instead of always using the long string with all conditions
+rest.data$nearMe <- rest.data$neighborhood %in% c("Roland Park","Homeland")
+
+##create binary values to subset data
+rest.data$zipWrong <- ifelse(rest.data$zipCode<0,TRUE,FALSE)
+table(rest.data$zipWrong)
+
+##create categorical values baded on quantative variables (grouping zipcodes based on quantiles)
+rest.data$zipGroups <- cut(rest.data$zipCode,breaks = quantile(rest.data$zipCode))
+table(rest.data$zipGroups)
+
+##Grouping is easier with Hmisc packagec (breaks the data into 4 quantiles)
+library(Hmisc)
+rest.data$zipGroups <- cut2(rest.data$zipCode, g=4)
+
+##create factor variables (based on int variable)
+rest.data$zcf <- factor(rest.data$zipCode)
+rest.data$zcf[1:10]
+
+##levels of factor variables
+yesno <- sample(c("yes","no"),size=10,replace=TRUE)
+##by default levels will be ordered alphabetically - so if you want a different order then define the levels in the order you want them
+yesnofac <- factor(yesno,levels=c("yes","no"))
+relevel(yesnofac, ref = "yes")
+
+##turn factor variable into a numeric variable
+as.numeric(yesnofac)
+
+##mutate table and save it into another object
+library(Hmisc);library(plyr)
+rest.data2 <- mutate(rest.data, zipGroups = cut2(zipCode, g = 4))
+
+
+##
+

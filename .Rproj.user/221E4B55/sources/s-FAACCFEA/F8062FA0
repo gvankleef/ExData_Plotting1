@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1558437523407.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1565603863",
+    "id" : "F8062FA0",
+    "lastKnownWriteTime" : 1558443232,
+    "last_content_update" : 1558443232702,
+    "path" : "C:/Users/Guido/CloudStation/Digital Analyst/R/4_data-analysis_week1/Assignment/ExData_Plotting1/Scripts/data prep.R",
+    "project_path" : "Scripts/data prep.R",
+    "properties" : {
+        "cursorPosition" : "1,19",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

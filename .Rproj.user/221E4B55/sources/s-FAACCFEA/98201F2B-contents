@@ -1,0 +1,48 @@
+##Package can be used to handle data frames
+##First argument is ALWAYS a data frame
+##These are the most important functions of the package
+##select - returns a subset of the columns of the data frame
+##filter - extract a subset of rows from a data frame based on logical conditions
+##arrange - reorder rows of a data frame
+##rename - rename variables in a data frame
+##mutate - add new variables or columns to a data frame or transform existing ones
+##summarise - generate summary statistics of different variables in the data frame
+
+library(dplyr)
+
+##create tbl_df table - easier to work with and prints nicely to the console
+example <- tbl_df(mtcars)
+
+##SELECT - returns a subset of the columns of the data frame
+names(mtcars)
+##select all columns from mpg to hp
+select(mtcars,mpg:hp)
+##select all columns execpt from columns mpg to hp
+select(mtcars,-(mpg:hp))
+
+##FILTER - extract a subset of rows from a data frame based on logical conditions
+filter(mtcars,mpg > 20 & gear > 4)
+
+##ARRANGE - reorder rows of a data frame (by default asc)
+arrange(mtcars,mpg)
+arrange(mtcars,mpg,gear)
+
+##RENAME - rename variables in a data frame
+x <- mtcars
+x <- rename(x, display=disp, cylinder=cyl)
+
+##MUTATE - add new variables or columns to a data frame or transform existing ones
+x <- mtcars
+x2 <- mutate(x,mpgmod = mpg / 10,)
+
+##GROUP BY - split a dataframe
+x3 <- group_by(x,gear)
+
+##SUMMARIZE - generate summary statistics of different variables in the data frame
+##it will summarize based on the variable that was used to group the dataframe by
+summarize(x3,mpgmean = mean(mpg), mincyl = min(cylinder) , maxcyl = max(cylinder))
+
+##use the pipeline variable "%>%" to combine multiple data mutations in one flow.
+##Each time the outcome of the previous code before %>% will be used
+x4 <- mutate(x, mpgmod = mpg / 10) %>% group_by(gear) %>% summarize(mpgmean = mean(mpg))
+

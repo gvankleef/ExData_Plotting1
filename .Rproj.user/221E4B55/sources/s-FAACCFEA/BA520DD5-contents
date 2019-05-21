@@ -1,0 +1,21 @@
+d1 <- date()
+d1
+d2 <- Sys.Date()
+d2
+
+format(d2,"%a %b %d")
+
+##Format characters as dates
+x <- c("1-jan-1960","2-jan-1960")
+z <- as.Date(x,"%d-%b-%Y")
+
+##the lubridate package can easily turn character into dates
+library(lubridate)
+z2 <- dmy(x)
+
+##same method applies to time
+ymd_hms("2011-08-03 20:00:02")
+
+##set timezone
+ymd_hms("2011-08-03 20:00:02", tz = "Pacific/Auckland")
+
